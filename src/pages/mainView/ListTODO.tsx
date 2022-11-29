@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import { Container } from "../../components/Container";
+import { ModalContainer } from "../../components/ModalContainer";
 
 export const ListTODO = () => {
+  const [modalDeleteElem, setModalDeleteElem] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<number>(-1);
   //const list2 = ["item 1", "item 2", "item 3"];
-  const list = [
+  const [list, setList] = useState([
     {
       id: 1,
       nameList: "item 1",
@@ -15,25 +19,48 @@ export const ListTODO = () => {
       id: 3,
       nameList: "item 3",
     },
-  ];
+  ]);
+
+  const deleteElement = (id: number) => {
+    const newList: { id: number; nameList: string }[] = [];
+
+    list.map((element) => {
+      element.id !== id && newList.push(element);
+    });
+    setList(newList);
+    setModalDeleteElem(false);
+  };
+
+  const deleteElem = (id: number) => {
+    setIdToDelete(id);
+    setModalDeleteElem(true);
+  };
 
   return (
-    <div className="h-100 d-flex align-items-center">
-      <Container height="h-75" width="w-75">
-        <div className="d-flex flex-column h-100">
-          <h1 className="text-center pt-4">Lista de TODO</h1>
-          <div className="align-items-center d-flex flex-column">
-            {list.map((element) => (
-              <ListToShow
-                key={element.id}
-                id={element.id}
-                nameList={element.nameList}
-              />
-            ))}
+    <>
+      <ModalContainer
+        isVisible={modalDeleteElem}
+        onAccept={() => deleteElement(idToDelete)}
+        onCancel={() => setModalDeleteElem(false)}
+      />
+      <div className="h-100 d-flex align-items-center">
+        <Container height="h-75" width="w-75">
+          <div className="d-flex flex-column h-100">
+            <h1 className="text-center pt-4">Lista de TODO</h1>
+            <div className="align-items-center d-flex flex-column">
+              {list.map((element) => (
+                <ListToShow
+                  key={element.id}
+                  id={element.id}
+                  nameList={element.nameList}
+                  deleteElement={(ev) => deleteElem(ev)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </>
   );
 };
 
@@ -58,6 +85,7 @@ const ListToShow = (props: listToShow) => {
           <button
             type="button"
             className="btn btn-outline-danger containerIcons"
+            onClick={() => props.deleteElement(props.id)}
           >
             <i className="bi bi-trash"></i>
           </button>
@@ -70,4 +98,5 @@ const ListToShow = (props: listToShow) => {
 interface listToShow {
   id: number;
   nameList: string;
+  deleteElement: (id: number) => void;
 }
