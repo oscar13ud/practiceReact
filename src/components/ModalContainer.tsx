@@ -20,7 +20,7 @@ export const ModalContainer = (props: modalContainer) => {
   );
 };
 
-interface modalContainer {
+export interface modalContainer {
   isVisible: boolean;
   onAccept?: () => void;
   onCancel?: () => void;
