@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container } from "../../components/Container";
 import { ModalContainer } from "../../components/ModalContainer";
 
@@ -48,14 +48,20 @@ export const ListTODO = () => {
           <div className="d-flex flex-column h-100">
             <h1 className="text-center pt-4">Lista de TODO</h1>
             <div className="align-items-center d-flex flex-column">
-              {list.map((element) => (
-                <ListToShow
-                  key={element.id}
-                  id={element.id}
-                  nameList={element.nameList}
-                  deleteElement={(ev) => deleteElem(ev)}
-                />
-              ))}
+              {list.length ? (
+                list.map((element) => (
+                  <ListToShow
+                    key={element.id}
+                    id={element.id}
+                    nameList={element.nameList}
+                    deleteElement={(ev) => deleteElem(ev)}
+                  />
+                ))
+              ) : (
+                <div className="text-center pt-5">
+                  No hay una lista de TODOs para Mostrar
+                </div>
+              )}
             </div>
           </div>
         </Container>
