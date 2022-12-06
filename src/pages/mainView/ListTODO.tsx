@@ -1,25 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "../../components/Container";
 import { ModalContainer } from "../../components/ModalContainer";
+import { itemsInit } from "../../dataMedia";
 
-export const ListTODO = () => {
+export const ListTODO = (props: listTODO) => {
+  console.log(props);
   const [modalDeleteElem, setModalDeleteElem] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<number>(-1);
-  //const list2 = ["item 1", "item 2", "item 3"];
-  const [list, setList] = useState([
-    {
-      id: 1,
-      nameList: "item 1",
-    },
-    {
-      id: 2,
-      nameList: "item 2",
-    },
-    {
-      id: 3,
-      nameList: "item 3",
-    },
-  ]);
+  const [list, setList] = useState(props.list);
+
+  useEffect(() => {
+    setList(props.list);
+  }, [props.list]);
 
   const deleteElement = (id: number) => {
     const newList: { id: number; nameList: string }[] = [];
@@ -47,21 +39,23 @@ export const ListTODO = () => {
         <Container height="h-75" width="w-75">
           <div className="d-flex flex-column h-100">
             <h1 className="text-center pt-4">Lista de TODO</h1>
-            <div className="align-items-center d-flex flex-column">
-              {list.length ? (
-                list.map((element) => (
-                  <ListToShow
-                    key={element.id}
-                    id={element.id}
-                    nameList={element.nameList}
-                    deleteElement={(ev) => deleteElem(ev)}
-                  />
-                ))
-              ) : (
-                <div className="text-center pt-5">
-                  No hay una lista de TODOs para Mostrar
-                </div>
-              )}
+            <div className="align-items-center d-flex flex-column overflow-auto">
+              <ul className="w-100 pe-4">
+                {list.length ? (
+                  list.map((element) => (
+                    <ListToShow
+                      key={element.id}
+                      id={element.id}
+                      nameList={element.nameList}
+                      deleteElement={(ev) => deleteElem(ev)}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center pt-5">
+                    No hay una lista de TODOs para Mostrar
+                  </div>
+                )}
+              </ul>
             </div>
           </div>
         </Container>
@@ -105,4 +99,8 @@ interface listToShow {
   id: number;
   nameList: string;
   deleteElement: (id: number) => void;
+}
+
+interface listTODO {
+  list: itemsInit[];
 }

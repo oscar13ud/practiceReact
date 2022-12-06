@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Container } from "../../components/Container";
 import { FormCreateTODO } from "./FormCreateTODO";
 
-export const CreateTODO = () => {
+export const CreateTODO = (props: IcreateTODO) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   return (
     <>
       <FormCreateTODO
         isVisible={modalVisible}
-        //onAccept={() => deleteElement(idToDelete)}
+        onAdd={(ev) => props.addTODO(ev)}
         onCancel={() => setModalVisible(false)}
       />
       <div className="h-100 d-flex justify-content-center align-items-center">
@@ -24,3 +24,7 @@ export const CreateTODO = () => {
     </>
   );
 };
+
+interface IcreateTODO {
+  addTODO: (todo?: string) => void;
+}
