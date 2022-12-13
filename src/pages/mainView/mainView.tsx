@@ -6,8 +6,18 @@ import { useState } from "react";
 export const MainView = () => {
   const [listTodo, setListTodo] = useState(list);
 
+  const deleteElement = (id: number) => {
+    const newList: { id: number; nameList: string }[] = [];
+
+    listTodo.map((element) => {
+      element.id !== id && newList.push(element);
+    });
+    setListTodo(newList);
+  };
+
   const propsList = {
     list: listTodo,
+    delElement: deleteElement,
   };
 
   const addTODO = (newTodo?: string) => {
