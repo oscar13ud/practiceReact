@@ -24,5 +24,5 @@ export interface modalContainer {
   isVisible: boolean;
   onAccept?: () => void;
   onCancel?: () => void;
-  onAdd?: (ev?: string) => void;
+  onAdd?: (ev?: string, descripción?: string) => void;
 }
