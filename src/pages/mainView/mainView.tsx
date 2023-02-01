@@ -20,14 +20,21 @@ export const MainView = () => {
     delElement: deleteElement,
   };
 
-  const addTODO = (newTodo?: string) => {
-    if (newTodo) {
+  const addTODO = (newTodo?: string, description?: string) => {
+    if (newTodo && description) {
       let acum = -1;
       listTodo.map((element) => {
         acum = element.id > acum ? element.id : acum;
       });
       setListTodo(
-        listTodo.concat([{ id: acum + 1, nameList: newTodo, completed: false }])
+        listTodo.concat([
+          {
+            id: acum + 1,
+            nameList: newTodo,
+            description: description,
+            completed: false,
+          },
+        ])
       );
     }
   };

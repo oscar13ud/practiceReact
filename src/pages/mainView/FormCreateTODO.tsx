@@ -6,20 +6,24 @@ import { modalContainer } from "../../components/ModalContainer";
 
 export const FormCreateTODO = (props: modalContainer) => {
   const [todoName, setTodoName] = useState<string>("");
+  const [todoDescription, setTodoDescription] = useState<string>("");
   const [enableButton, setEnableButton] = useState<boolean>(true);
+  const [enableButtonDescription, setEnableButtonDescription] = useState<boolean>(true);
   const maxCharacters = 21;
 
   useEffect(() => {
     setEnableButton(todoName.length < 1 || todoName.length >= 21);
-  }, [todoName]);
+    setEnableButtonDescription(todoDescription.length < 1 || todoDescription.length >= 50);
+  }, [todoName,todoDescription]);
 
   const closeModal = () => {
     setTodoName("");
+    setTodoDescription("");
     props.onCancel && props.onCancel();
   };
 
   const addNewTodo = () => {
-    props.onAdd && props.onAdd(todoName);
+    props.onAdd && props.onAdd(todoName,todoDescription);
     closeModal();
   };
   return (
@@ -49,7 +53,14 @@ export const FormCreateTODO = (props: modalContainer) => {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Detalle de la actividad</Form.Label>
-              <Form.Control as="textarea" rows={3} disabled />
+              <Form.Control 
+                type="text" 
+                placeholder="Descripción"
+                onChange={(ev) => setTodoDescription(ev.target.value)}
+                as="textarea" 
+                rows={3}
+                isValid={!enableButtonDescription}
+                isInvalid={enableButtonDescription} />
             </Form.Group>
           </Form>
         </Modal.Body>

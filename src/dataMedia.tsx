@@ -3,6 +3,7 @@ export const list = [
     id: 1,
     nameList: "item 1",
     completed: false,
+    description: "description 1",
   },
   {
     id: 2,
@@ -13,6 +14,7 @@ export const list = [
     id: 3,
     nameList: "item 3",
     completed: false,
+    description: "description 3",
   },
 ];
 

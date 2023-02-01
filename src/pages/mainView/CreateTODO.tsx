@@ -8,7 +8,7 @@ export const CreateTODO = (props: IcreateTODO) => {
     <>
       <FormCreateTODO
         isVisible={modalVisible}
-        onAdd={(ev) => props.addTODO(ev)}
+        onAdd={(ev,description) => props.addTODO(ev,description)}
         onCancel={() => setModalVisible(false)}
       />
       <div className="h-100 d-flex justify-content-center align-items-center">
@@ -26,5 +26,5 @@ export const CreateTODO = (props: IcreateTODO) => {
 };
 
 interface IcreateTODO {
-  addTODO: (todo?: string) => void;
+  addTODO: (todo?: string, description?: string) => void;
 }
