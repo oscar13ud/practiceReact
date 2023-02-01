@@ -46,6 +46,7 @@ export const FormCreateTODO = (props: modalContainer) => {
                 onChange={(ev) => setTodoName(ev.target.value)}
                 isValid={!enableButton}
                 isInvalid={enableButton}
+                defaultValue={props.defaulName}
               />
             </Form.Group>
             <Form.Group
@@ -60,7 +61,9 @@ export const FormCreateTODO = (props: modalContainer) => {
                 as="textarea" 
                 rows={3}
                 isValid={!enableButtonDescription}
-                isInvalid={enableButtonDescription} />
+                isInvalid={enableButtonDescription} 
+                defaultValue={props.defaulDescription}
+                />
             </Form.Group>
           </Form>
         </Modal.Body>

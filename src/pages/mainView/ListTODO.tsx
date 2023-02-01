@@ -18,6 +18,8 @@ export const ListTODO = (props: listTODO) => {
     setList(props.list);
   }, [props.list]);
 
+  let listIndex = props.list.findIndex(element => element.id === idToEdit)
+
   const deleteElement = (id: number) => {
     props.delElement(id);
     setModalDeleteElem(false);
@@ -29,7 +31,7 @@ export const ListTODO = (props: listTODO) => {
   };
 
   const editElement = (name?: string, description?: string) => {
-    props.editElement(idToEdit, name, description)
+    props.editElement(listIndex, name, description)
   };
 
   const searchTODO = (search: string) => {
@@ -54,6 +56,8 @@ export const ListTODO = (props: listTODO) => {
         onAdd={(name,description) => editElement(name, description)}
         onCancel={() => setModalEditElem(false)}
         title='Editar TODO'
+        defaulName={props.list[listIndex] && props.list[listIndex].nameList}
+        defaulDescription={props.list[listIndex] && props.list[listIndex].description}
       />
       <div className="h-100 d-flex align-items-center">
         <Container height="h-75" width="w-75">

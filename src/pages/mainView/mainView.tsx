@@ -16,9 +16,8 @@ export const MainView = () => {
   };
 
   const editElement = (id: number, name: string|undefined, description: string|undefined) => {
-    let index = listTodo.findIndex(element => element.id === id)
-    name && (listTodo[index].nameList = name)
-    description && ((listTodo[index].description = description))
+    name && (listTodo[id].nameList = name)
+    description && ((listTodo[id].description = description))
   }
 
   const onSetChecked = (id: number) => {
