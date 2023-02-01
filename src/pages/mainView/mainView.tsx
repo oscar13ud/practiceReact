@@ -4,7 +4,7 @@ import { list, itemsInit } from "../../dataMedia";
 import { useState } from "react";
 
 export const MainView = () => {
-  const [listTodo, setListTodo] = useState(list);
+  const [listTodo, setListTodo] = useState<itemsInit[]>(list);
 
   const deleteElement = (id: number) => {
     const newList: itemsInit[] = [];
@@ -15,9 +15,22 @@ export const MainView = () => {
     setListTodo(newList);
   };
 
+  const onSetChecked = (id: number) => {
+    const checkedList: itemsInit[] = [];
+
+    listTodo.map((element) => {
+      if (element.id === id) {
+        element.completed = !element.completed;
+      }
+      checkedList.push(element);
+    });
+
+    setListTodo(checkedList);
+  };
   const propsList = {
     list: listTodo,
     delElement: deleteElement,
+    onSetChecked: onSetChecked,
   };
 
   const addTODO = (newTodo?: string, description?: string) => {
