@@ -1,13 +1,13 @@
 import { CreateTODO } from "./CreateTODO";
 import { ListTODO } from "./ListTODO";
-import { list } from "../../dataMedia";
+import { list, itemsInit } from "../../dataMedia";
 import { useState } from "react";
 
 export const MainView = () => {
-  const [listTodo, setListTodo] = useState(list);
+  const [listTodo, setListTodo] = useState<itemsInit[]>(list);
 
   const deleteElement = (id: number) => {
-    const newList: { id: number; nameList: string; description?: string }[] = [];
+    const newList: itemsInit[] = [];
 
     listTodo.map((element) => {
       element.id !== id && newList.push(element);
@@ -21,10 +21,24 @@ export const MainView = () => {
     description && ((listTodo[index].description = description))
   }
 
+  const onSetChecked = (id: number) => {
+    const checkedList: itemsInit[] = [];
+
+    listTodo.map((element) => {
+      if (element.id === id) {
+        element.completed = !element.completed;
+      }
+      checkedList.push(element);
+    });
+
+    setListTodo(checkedList);
+  };
+
   const propsList = {
     list: listTodo,
     delElement: deleteElement,
     editElement: editElement,
+    onSetChecked: onSetChecked,
   };
 
   const addTODO = (newTodo?: string, description?: string) => {
@@ -33,7 +47,16 @@ export const MainView = () => {
       listTodo.map((element) => {
         acum = element.id > acum ? element.id : acum;
       });
-      setListTodo(listTodo.concat([{ id: acum + 1, nameList: newTodo, description: description }]));
+      setListTodo(
+        listTodo.concat([
+          {
+            id: acum + 1,
+            nameList: newTodo,
+            description: description,
+            completed: false,
+          },
+        ])
+      );
     }
   };
 

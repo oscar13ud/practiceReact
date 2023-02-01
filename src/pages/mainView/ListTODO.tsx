@@ -88,6 +88,8 @@ export const ListTODO = (props: listTODO) => {
                       deleteElement={(ev) => deleteElem(ev)}
                       editElement={(ev)=> { setIdToEdit(ev)
                                             setModalEditElem(true)}}
+                      checked={element.completed}
+                      onSetChecked={(id) => props.onSetChecked(id)}
                     />
                   ))
                 ) : (
@@ -108,13 +110,19 @@ const ListToShow = (props: listToShow) => {
   return (
     <li className="item">
       <div className="justify-content-between w-100 d-flex">
-        <p className="item-p">{props.nameList}</p>
+        {props.checked ? (
+          <del className="item-p">{props.nameList}</del>
+        ) : (
+          <p className="item-p">{props.nameList}</p>
+        )}
         <div className="btn-group" role="group" aria-label="Basic example">
           <input
             className="form-check-input align-self-center me-4"
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            defaultChecked={props.checked}
+            onChange={() => props.onSetChecked(props.id)}
           />
           <button
             type="button"
@@ -141,10 +149,13 @@ interface listToShow {
   nameList: string;
   editElement: (id: number) => void;
   deleteElement: (id: number) => void;
+  checked?: boolean;
+  onSetChecked: (id: number) => void;
 }
 
 interface listTODO {
   list: itemsInit[];
   delElement: (id: number) => void;
   editElement: (id: number, name: string|undefined, description: string|undefined) => void
+  onSetChecked: (id: number) => void;
 }
