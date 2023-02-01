@@ -10,6 +10,7 @@ export const CreateTODO = (props: IcreateTODO) => {
         isVisible={modalVisible}
         onAdd={(ev,description) => props.addTODO(ev,description)}
         onCancel={() => setModalVisible(false)}
+        title='Crear nuevo TODO'
       />
       <div className="h-100 d-flex justify-content-center align-items-center">
         <Container height="h-50" width="w-75">

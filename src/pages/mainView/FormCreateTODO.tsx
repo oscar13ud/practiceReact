@@ -30,7 +30,7 @@ export const FormCreateTODO = (props: modalContainer) => {
     <>
       <Modal show={props.isVisible} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Nuevo TODO</Modal.Title>
+          <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

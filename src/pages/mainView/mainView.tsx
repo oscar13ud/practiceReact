@@ -15,9 +15,16 @@ export const MainView = () => {
     setListTodo(newList);
   };
 
+  const editElement = (id: number, name: string|undefined, description: string|undefined) => {
+    let index = listTodo.findIndex(element => element.id === id)
+    name && (listTodo[index].nameList = name)
+    description && ((listTodo[index].description = description))
+  }
+
   const propsList = {
     list: listTodo,
     delElement: deleteElement,
+    editElement: editElement,
   };
 
   const addTODO = (newTodo?: string, description?: string) => {
