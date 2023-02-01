@@ -7,7 +7,7 @@ export const MainView = () => {
   const [listTodo, setListTodo] = useState(list);
 
   const deleteElement = (id: number) => {
-    const newList: { id: number; nameList: string }[] = [];
+    const newList: { id: number; nameList: string; description?: string }[] = [];
 
     listTodo.map((element) => {
       element.id !== id && newList.push(element);
@@ -20,13 +20,13 @@ export const MainView = () => {
     delElement: deleteElement,
   };
 
-  const addTODO = (newTodo?: string) => {
-    if (newTodo) {
+  const addTODO = (newTodo?: string, description?: string) => {
+    if (newTodo && description) {
       let acum = -1;
       listTodo.map((element) => {
         acum = element.id > acum ? element.id : acum;
       });
-      setListTodo(listTodo.concat([{ id: acum + 1, nameList: newTodo }]));
+      setListTodo(listTodo.concat([{ id: acum + 1, nameList: newTodo, description: description }]));
     }
   };
 
