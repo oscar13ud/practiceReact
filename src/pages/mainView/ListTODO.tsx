@@ -5,7 +5,6 @@ import { itemsInit } from "../../dataMedia";
 import Form from "react-bootstrap/Form";
 
 export const ListTODO = (props: listTODO) => {
-  console.log(props);
   const [modalDeleteElem, setModalDeleteElem] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<number>(-1);
   const [list, setList] = useState(props.list);
@@ -73,6 +72,7 @@ export const ListTODO = (props: listTODO) => {
                       id={element.id}
                       nameList={element.nameList}
                       deleteElement={(ev) => deleteElem(ev)}
+                      checked={element.completed}
                     />
                   ))
                 ) : (
@@ -100,6 +100,7 @@ const ListToShow = (props: listToShow) => {
             type="checkbox"
             value=""
             id="flexCheckDefault"
+            checked={props.checked}
           />
           <button
             type="button"
@@ -124,6 +125,7 @@ interface listToShow {
   id: number;
   nameList: string;
   deleteElement: (id: number) => void;
+  checked?: boolean;
 }
 
 interface listTODO {

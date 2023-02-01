@@ -1,13 +1,13 @@
 import { CreateTODO } from "./CreateTODO";
 import { ListTODO } from "./ListTODO";
-import { list } from "../../dataMedia";
+import { list, itemsInit } from "../../dataMedia";
 import { useState } from "react";
 
 export const MainView = () => {
   const [listTodo, setListTodo] = useState(list);
 
   const deleteElement = (id: number) => {
-    const newList: { id: number; nameList: string }[] = [];
+    const newList: itemsInit[] = [];
 
     listTodo.map((element) => {
       element.id !== id && newList.push(element);
@@ -26,7 +26,9 @@ export const MainView = () => {
       listTodo.map((element) => {
         acum = element.id > acum ? element.id : acum;
       });
-      setListTodo(listTodo.concat([{ id: acum + 1, nameList: newTodo }]));
+      setListTodo(
+        listTodo.concat([{ id: acum + 1, nameList: newTodo, completed: false }])
+      );
     }
   };
 
