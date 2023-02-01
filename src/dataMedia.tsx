@@ -22,4 +22,5 @@ export interface itemsInit {
   id: number;
   nameList: string;
   completed: boolean;
+  description?: string;
 }
