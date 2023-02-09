@@ -15,7 +15,7 @@ export const MainView = () => {
     setListTodo(newList);
   };
 
-  const editElement = (id: number, name: string|undefined, description: string|undefined) => {
+  const editElement = (id: number, name?: string, description?: string) => {
     name && (listTodo[id].nameList = name)
     description && ((listTodo[id].description = description))
   }

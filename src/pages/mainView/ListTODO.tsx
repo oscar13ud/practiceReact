@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 import { FormCreateTODO } from "./FormCreateTODO";
 
 export const ListTODO = (props: listTODO) => {
-  console.log(props.list);
   const [modalDeleteElem, setModalDeleteElem] = useState<boolean>(false);
   const [modalEditElem, setModalEditElem] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<number>(-1);
@@ -160,6 +159,6 @@ interface listToShow {
 interface listTODO {
   list: itemsInit[];
   delElement: (id: number) => void;
-  editElement: (id: number, name: string|undefined, description: string|undefined) => void
+  editElement: (id: number, name?: string, description?: string) => void
   onSetChecked: (id: number) => void;
 }
