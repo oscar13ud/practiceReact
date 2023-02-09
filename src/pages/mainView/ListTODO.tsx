@@ -3,16 +3,21 @@ import { Container } from "../../components/Container";
 import { ModalContainer } from "../../components/ModalContainer";
 import { itemsInit } from "../../dataMedia";
 import Form from "react-bootstrap/Form";
+import { FormCreateTODO } from "./FormCreateTODO";
 
 export const ListTODO = (props: listTODO) => {
   const [modalDeleteElem, setModalDeleteElem] = useState<boolean>(false);
+  const [modalEditElem, setModalEditElem] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<number>(-1);
+  const [idToEdit, setIdToEdit] = useState<number>(-1);
   const [list, setList] = useState(props.list);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     setList(props.list);
   }, [props.list]);
+
+  let listIndex = props.list.findIndex(element => element.id === idToEdit)
 
   const deleteElement = (id: number) => {
     props.delElement(id);
@@ -22,6 +27,10 @@ export const ListTODO = (props: listTODO) => {
   const deleteElem = (id: number) => {
     setIdToDelete(id);
     setModalDeleteElem(true);
+  };
+
+  const editElement = (name?: string, description?: string) => {
+    props.editElement(listIndex, name, description)
   };
 
   const searchTODO = (search: string) => {
@@ -40,6 +49,14 @@ export const ListTODO = (props: listTODO) => {
         isVisible={modalDeleteElem}
         onAccept={() => deleteElement(idToDelete)}
         onCancel={() => setModalDeleteElem(false)}
+      />
+      <FormCreateTODO
+        isVisible={modalEditElem}
+        onAdd={(name,description) => editElement(name, description)}
+        onCancel={() => setModalEditElem(false)}
+        title='Editar TODO'
+        defaulName={props.list[listIndex] && props.list[listIndex].nameList}
+        defaulDescription={props.list[listIndex] && props.list[listIndex].description}
       />
       <div className="h-100 d-flex align-items-center">
         <Container height="h-75" width="w-75">
@@ -72,6 +89,8 @@ export const ListTODO = (props: listTODO) => {
                       id={element.id}
                       nameList={element.nameList}
                       deleteElement={(ev) => deleteElem(ev)}
+                      editElement={(ev)=> { setIdToEdit(ev)
+                                            setModalEditElem(true)}}
                       checked={element.completed}
                       onSetChecked={(id) => props.onSetChecked(id)}
                     />
@@ -111,6 +130,7 @@ const ListToShow = (props: listToShow) => {
           <button
             type="button"
             className="btn btn-outline-primary containerIcons"
+            onClick={()=>props.editElement(props.id)}
           >
             <i className="bi bi-pencil-square"></i>
           </button>
@@ -130,6 +150,7 @@ const ListToShow = (props: listToShow) => {
 interface listToShow {
   id: number;
   nameList: string;
+  editElement: (id: number) => void;
   deleteElement: (id: number) => void;
   checked?: boolean;
   onSetChecked: (id: number) => void;
@@ -138,5 +159,6 @@ interface listToShow {
 interface listTODO {
   list: itemsInit[];
   delElement: (id: number) => void;
+  editElement: (id: number, name?: string, description?: string) => void
   onSetChecked: (id: number) => void;
 }

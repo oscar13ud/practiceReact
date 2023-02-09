@@ -22,6 +22,9 @@ export const ModalContainer = (props: modalContainer) => {
 
 export interface modalContainer {
   isVisible: boolean;
+  title?: string;
+  defaulName?: string;
+  defaulDescription?: string;
   onAccept?: () => void;
   onCancel?: () => void;
   onAdd?: (ev?: string, descripción?: string) => void;

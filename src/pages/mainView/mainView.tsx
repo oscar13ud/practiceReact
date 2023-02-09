@@ -15,6 +15,11 @@ export const MainView = () => {
     setListTodo(newList);
   };
 
+  const editElement = (id: number, name?: string, description?: string) => {
+    name && (listTodo[id].nameList = name)
+    description && ((listTodo[id].description = description))
+  }
+
   const onSetChecked = (id: number) => {
     const checkedList: itemsInit[] = [];
 
@@ -27,9 +32,11 @@ export const MainView = () => {
 
     setListTodo(checkedList);
   };
+
   const propsList = {
     list: listTodo,
     delElement: deleteElement,
+    editElement: editElement,
     onSetChecked: onSetChecked,
   };
 

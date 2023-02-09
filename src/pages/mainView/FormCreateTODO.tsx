@@ -30,7 +30,7 @@ export const FormCreateTODO = (props: modalContainer) => {
     <>
       <Modal show={props.isVisible} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Nuevo TODO</Modal.Title>
+          <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -46,6 +46,7 @@ export const FormCreateTODO = (props: modalContainer) => {
                 onChange={(ev) => setTodoName(ev.target.value)}
                 isValid={!enableButton}
                 isInvalid={enableButton}
+                defaultValue={props.defaulName}
               />
             </Form.Group>
             <Form.Group
@@ -60,7 +61,9 @@ export const FormCreateTODO = (props: modalContainer) => {
                 as="textarea" 
                 rows={3}
                 isValid={!enableButtonDescription}
-                isInvalid={enableButtonDescription} />
+                isInvalid={enableButtonDescription} 
+                defaultValue={props.defaulDescription}
+                />
             </Form.Group>
           </Form>
         </Modal.Body>
